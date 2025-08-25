@@ -19,6 +19,13 @@ app.get("/nombres", (req, res) => {
   res.send(nombres);
 });
 
+app.get("/horarios", (req, res) => {
+  res.send({
+    viernes: "Virtual a las 19hs",
+    lunes: "Virtual o presencial (a definir) 18hs",
+  });
+});
+
 app.listen(port, () => {
   console.log(`La aplicación esta funcionando en ${port}`);
 });
