@@ -1,0 +1,29 @@
+@url=http://localhost:3000
+
+### Listado de nombres
+GET {{url}}/nombres
+
+### Listado de nombres con filtro
+GET {{url}}/nombres?nombre=ri
+
+### Detalles de nombre
+GET {{url}}/nombres/1
+
+### Crear nombre
+POST {{url}}/nombres
+Content-Type: application/json
+
+{
+    "nuevoValor": "Pepe"
+}
+
+### Modificar nombre
+PUT {{url}}/nombres/3
+Content-Type: application/json
+
+{
+    "nuevoNombre": "Aqui"
+}
+
+### Quitar nombre
+DELETE {{url}}/nombres/3
