@@ -16,7 +16,7 @@ GET {{url}}/productos?producto=a&precioMin=5
 GET {{url}}/productos?precioMin=5&producto=a
 
 ### Detalles de producto
-GET {{url}}/productos/3.5
+GET {{url}}/productos/3
 
 ### Crear producto
 POST {{url}}/productos
@@ -29,3 +29,17 @@ Content-Type: application/json
     "cantidad": 10,
     "otrovalo": 3
 }
+
+### Modificar producto
+PUT {{url}}/productos/3
+Content-Type: application/json
+
+{
+  "producto": "Jaboooooon",
+  "categoria": "Limpieza",
+  "cantidad": 30,
+  "precio": 9
+}
+
+### Quitar producto
+DELETE {{url}}/productos/3

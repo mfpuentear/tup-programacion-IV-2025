@@ -6,7 +6,7 @@ const port = 3000;
 // Para interpretar body como JSON
 app.use(express.json());
 
-const productos = [
+let productos = [
   { id: 1, producto: "Pan", categoria: "Panificacion", cantidad: 5, precio: 2 },
   {
     id: 2,
@@ -107,10 +107,109 @@ app.post("/productos", (req, res) => {
 });
 
 // PUT para modificar producto a partir de un id
-app.put("/productos/:id", (req, res) => {});
+app.put("/productos/:id", (req, res) => {
+  // Verifico id que sea un numero entero positivo
+  const id = Number(req.params.id);
+  if (isNaN(id) || !Number.isInteger(id) || id <= 0) {
+    return res
+      .status(400)
+      .json({ success: false, message: "Parametro id inválido" });
+  }
+
+  // Verificar que este presente el producto
+  let productoEncontrado = productos.find((p) => p.id === id);
+  if (!productoEncontrado) {
+    return res
+      .status(404)
+      .json({ success: false, message: "Producto no encontrado" });
+  }
+
+  // Validar el body
+  const { producto, categoria, cantidad, precio } = req.body;
+
+  // Verificar que existan los campos obligatorios
+  if (
+    producto === undefined ||
+    categoria === undefined ||
+    cantidad === undefined ||
+    precio === undefined
+  ) {
+    return res
+      .status(400)
+      .json({ success: false, message: "Falta algún campo" });
+  }
+
+  if (producto.trim() === "" || producto.trim().length > 100) {
+    return res.status(400).json({
+      success: false,
+      message: "El campo producto esta vacío o supera los 100 caracteres",
+    });
+  }
+
+  if (categoria.trim() === "") {
+    return res
+      .status(400)
+      .json({ success: false, message: "El campo categoria esta vacío" });
+  }
+
+  if (isNaN(cantidad) || !Number.isInteger(cantidad) || cantidad < 0) {
+    return res
+      .status(400)
+      .json({ success: false, message: "Cantidad inválida" });
+  }
+
+  if (isNaN(precio) || precio <= 0) {
+    return res.status(400).json({ success: false, message: "Precio inválido" });
+  }
+
+  // Modificar el producto
+
+  // Alternativa 1: Modificar atributo por atributo
+  /*
+  productoEncontrado.producto = producto;
+  productoEncontrado.categoria = categoria;
+  productoEncontrado.cantidad = cantidad;
+  productoEncontrado.precio = precio;
+  */
+
+  // Alternativa 2: empleando findIndex anteriormente
+
+  // Alternativa 3: Reemplazar el arreglo
+  productos = productos.map((p) =>
+    p.id === id ? { id, producto, categoria, cantidad, precio } : p
+  );
+
+  // Responder con producto modificado
+  res.json({ success: true, data: productoEncontrado });
+});
 
 // DELETE para quitar un producto a partir de un id
-app.delete("/productos/:id", (req, res) => {});
+app.delete("/productos/:id", (req, res) => {
+  // Verifico id que sea un numero entero positivo
+  const id = Number(req.params.id);
+  if (isNaN(id) || !Number.isInteger(id) || id <= 0) {
+    return res
+      .status(400)
+      .json({ success: false, message: "Parametro id inválido" });
+  }
+
+  // Verificar que este presente el producto
+  let productoEncontrado = productos.find((p) => p.id === id);
+  if (!productoEncontrado) {
+    return res
+      .status(404)
+      .json({ success: false, message: "Producto no encontrado" });
+  }
+
+  // Quitar del arreglo
+  // Alternativa 1: emplear findIndex y quitar con splice
+
+  // Alternativa 2:
+  productos = productos.filter((p) => p.id !== id);
+
+  // Retornar producto quitado
+  res.json({ success: true, data: productoEncontrado });
+});
 
 app.listen(port, () => {
   console.log(`La aplicación esta funcionando en ${port}`);
