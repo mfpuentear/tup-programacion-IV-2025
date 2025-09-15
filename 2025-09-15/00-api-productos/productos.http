@@ -1,0 +1,45 @@
+@url=http://localhost:3000
+
+### Listado de productos
+GET {{url}}/productos
+
+### Listado de productos con filtro de producto
+GET {{url}}/productos?producto=a
+
+### Listado de productos con filtro de precio minimo
+GET {{url}}/productos?precioMin=5
+
+### Listado de productos con filtro de producto y precio minimo
+GET {{url}}/productos?producto=a&precioMin=5
+
+### Listado de productos con filtro de precio minimo y producto
+GET {{url}}/productos?precioMin=5&producto=a
+
+### Detalles de producto
+GET {{url}}/productos/10
+
+### Crear producto
+POST {{url}}/productos
+Content-Type: application/json
+
+{
+    "nombre": "Yogurt",
+    "categoria": "Lacteos",
+    "precio": 1,
+    "cantidad": 10,
+    "otrovalo": 3
+}
+
+### Modificar producto
+PUT {{url}}/productos/10
+Content-Type: application/json
+
+{
+  "nombre": "Banana",
+  "categoria": "Frutas",
+  "cantidad": 30,
+  "precio": 9
+}
+
+### Quitar producto
+DELETE {{url}}/productos/5
