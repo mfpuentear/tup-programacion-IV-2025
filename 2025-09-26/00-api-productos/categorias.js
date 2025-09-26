@@ -7,7 +7,7 @@ const router = express.Router();
 
 // Validaciones
 const validarCategoria = [
-  body("nombre").isAlpha("es-ES").isLength({ max: 50 }),
+  body("nombre").isAlpha("es-ES", { ignore: " " }).isLength({ max: 50 }),
 ];
 
 router.get("/", async (req, res) => {
