@@ -1,0 +1,21 @@
+@url=http://localhost:3000
+
+### Consultar usuarios
+GET {{url}}/usuarios
+
+### Consultar por un usuario
+GET {{url}}/usuarios/1
+
+### Consultar por roles de usuario
+GET {{url}}/usuarios/3/roles
+
+### Asignar rol a usuario
+POST {{url}}/usuarios/3/roles
+Content-Type: application/json
+
+{
+    "rolId": 5
+}
+
+### Quitar rol a usuario
+DELETE {{url}}/usuarios/3/roles/5
