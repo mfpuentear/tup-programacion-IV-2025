@@ -23,12 +23,15 @@ export function Usuarios() {
   }, [fetchAuth]);
 
   return (
-    <ul>
-      {usuarios.map((u) => (
-        <li key={u.id}>
-          {u.username} ({u.apellido}, {u.nombre})
-        </li>
-      ))}
-    </ul>
+    <>
+      <h1>Usuarios</h1>
+      <ul>
+        {usuarios.map((u) => (
+          <li key={u.id}>
+            {u.username} ({u.apellido}, {u.nombre})
+          </li>
+        ))}
+      </ul>
+    </>
   );
 }

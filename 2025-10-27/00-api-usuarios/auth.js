@@ -34,7 +34,7 @@ export const verificarAutorizacion = (rol) => {
   return (req, res, next) => {
     const roles = req.user.roles;
     if (!roles.includes(rol)) {
-      res
+      return res
         .status(401)
         .json({ success: false, message: "Usuario no autorizado" });
     }
@@ -88,17 +88,21 @@ router.post(
       [usuarios[0].id]
     );
 
+    const rolesUsuario = roles.map((r) => r.nombre);
+
     // Generar jwt
-    const payload = {
-      userId: usuarios[0].id,
-      roles: roles.map((r) => r.nombre),
-    };
+    const payload = { userId: usuarios[0].id, roles: rolesUsuario };
     const token = jwt.sign(payload, process.env.JWT_SECRET, {
       expiresIn: "2h",
     });
 
-    // Devolver jwt
-    res.json({ success: true, token });
+    // Devolver jwt y otros datos
+    res.json({
+      success: true,
+      token,
+      username: usuarios[0].username,
+      roles: rolesUsuario,
+    });
   }
 );
 

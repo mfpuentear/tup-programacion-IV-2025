@@ -10,6 +10,8 @@ export const useAuth = () => {
 
 export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(null);
+  const [username, setUsername] = useState(null);
+  const [roles, setRoles] = useState(null);
   const [error, setError] = useState(null);
 
   const login = async (username, password) => {
@@ -28,6 +30,8 @@ export const AuthProvider = ({ children }) => {
       }
 
       setToken(session.token);
+      setUsername(session.username);
+      setRoles(session.roles);
       return { success: true };
     } catch (err) {
       setError(err.message);
@@ -37,6 +41,8 @@ export const AuthProvider = ({ children }) => {
 
   const logout = () => {
     setToken(null);
+    setUsername(null);
+    setRoles(null);
     setError(null);
   };
 
@@ -52,7 +58,9 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ token, error, login, logout, fetchAuth }}>
+    <AuthContext.Provider
+      value={{ token, username, roles, error, login, logout, fetchAuth }}
+    >
       {children}
     </AuthContext.Provider>
   );
