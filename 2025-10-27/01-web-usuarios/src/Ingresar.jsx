@@ -44,10 +44,13 @@ export const Ingresar = () => {
             </fieldset>
             <footer>
               <div className="grid">
-                <button className="secondary" onClick={() => setOpen(false)}>
-                  Cancelar
-                </button>
-                <button type="submit">Ingresar</button>
+                <input
+                  type="button"
+                  className="secondary"
+                  value="Cancelar"
+                  onClick={() => setOpen(false)}
+                />
+                <input type="submit" value="Ingresar" />
               </div>
             </footer>
           </form>
